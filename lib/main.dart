@@ -5,7 +5,7 @@ import 'package:instagram_bloc/config/custom_routes.dart';
 import 'package:instagram_bloc/cubit/counter_cubit.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:instagram_bloc/screens/splash.dart';
+import 'package:instagram_bloc/screens/screens.dart';
 import 'firebase_options.dart';
 
 void main() async {

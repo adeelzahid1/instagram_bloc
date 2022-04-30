@@ -8,7 +8,6 @@ class SplashScreen extends StatelessWidget {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
       builder: (_) => const SplashScreen(),
-
     );
   }
 
