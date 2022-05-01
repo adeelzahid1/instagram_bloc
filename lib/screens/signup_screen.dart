@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_bloc/blocs/signup/signup_cubit.dart';
 import 'package:instagram_bloc/repositories/auth_repository.dart';
+import 'package:instagram_bloc/utils/error_dialog.dart';
 
 class SignupScreen extends StatelessWidget {
   SignupScreen({Key? key}) : super(key: key);
@@ -28,12 +29,13 @@ class SignupScreen extends StatelessWidget {
         child: BlocConsumer<SignupCubit, SignupState>(
           listener: (context, state) {
             if (state.status == SignupStatus.error) {
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        title: Text('Error'),
-                        content: Text('${state.failure.message}'),
-                      ));
+             errorDialog(context, state.failure);
+              // showDialog(
+              //     context: context,
+              //     builder: (context) => AlertDialog(
+              //           title: Text('Error'),
+              //           content: Text('${state.failure.message}'),
+              //         ));
             }
           },
           builder: (context, state) {

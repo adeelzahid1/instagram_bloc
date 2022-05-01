@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_bloc/blocs/login/login_cubit.dart';
 import 'package:instagram_bloc/repositories/auth_repository.dart';
 import 'package:instagram_bloc/screens/signup_screen.dart';
+import 'package:instagram_bloc/utils/error_dialog.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -31,9 +32,10 @@ class LoginScreen extends StatelessWidget {
             print('login state : $state');
             print('login state : ${state.failure.message}');
             if(state.status == LoginStatus.error){
-              showDialog(context: context,
-               builder: (context) => AlertDialog(title: Text('Error'), content: Text('${state.failure.message}'))
-               );
+              errorDialog(context, state.failure);
+              // showDialog(context: context,
+              //  builder: (context) => AlertDialog(title: Text('Error'), content: Text('${state.failure.message}'))
+              //  );
             }
           },
           builder: (context, state) {
