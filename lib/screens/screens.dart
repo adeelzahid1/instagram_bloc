@@ -1,1 +1,0 @@
-export '../screens/splash.dart';

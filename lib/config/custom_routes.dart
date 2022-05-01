@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram_bloc/screens/login_screen.dart';
+import 'package:instagram_bloc/screens/nav_screen.dart';
 import 'package:instagram_bloc/screens/splash.dart';
 
 class CustomRouter{
   static Route onGenerateRoute(RouteSettings settings){
+    print(settings.name);
     switch (settings.name){
       case '/':
         return MaterialPageRoute(settings: const RouteSettings(name: '/'),
@@ -11,6 +14,10 @@ class CustomRouter{
         );
       case SplashScreen.routeName:
         return SplashScreen.route();
+      case LoginScreen.routeName:
+        return LoginScreen.route();
+      case NavScreen.routeName:
+        return LoginScreen.route();
       
         default:  
         return _errorRoute();
