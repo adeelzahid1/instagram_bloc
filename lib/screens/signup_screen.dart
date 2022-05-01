@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:instagram_bloc/blocs/login/login_cubit.dart';
+import 'package:instagram_bloc/blocs/signup/signup_cubit.dart';
 import 'package:instagram_bloc/repositories/auth_repository.dart';
-import 'package:instagram_bloc/screens/signup_screen.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
-  static const String routeName = '/login';
+class SignupScreen extends StatelessWidget {
+  SignupScreen({Key? key}) : super(key: key);
+
+  static const String routeName = '/signup';
   static Route route() {
-    return PageRouteBuilder(
-        settings: const RouteSettings(name: routeName),
-        transitionDuration: const Duration(seconds: 0),
-        pageBuilder: (context, __, ___) => BlocProvider<LoginCubit>(
-              create: (_) =>
-                  LoginCubit(authRepository: context.read<AuthRepository>()),
-              child: LoginScreen(),
-            ));
+    return MaterialPageRoute(
+      settings: const RouteSettings(name: routeName),
+      builder: (context) => BlocProvider(
+        create: (context) => SignupCubit(authRepository: context.read<AuthRepository>(),),
+        child: SignupScreen(),
+      ),
+    );
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -26,14 +25,15 @@ class LoginScreen extends StatelessWidget {
       onWillPop: () async => false,
       child: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: BlocConsumer<LoginCubit, LoginState>(
+        child: BlocConsumer<SignupCubit, SignupState>(
           listener: (context, state) {
-            print('login state : $state');
-            print('login state : ${state.failure.message}');
-            if(state.status == LoginStatus.error){
-              showDialog(context: context,
-               builder: (context) => AlertDialog(title: Text('Error'), content: Text('${state.failure.message}'))
-               );
+            if (state.status == SignupStatus.error) {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: Text('Error'),
+                        content: Text('${state.failure.message}'),
+                      ));
             }
           },
           builder: (context, state) {
@@ -64,8 +64,21 @@ class LoginScreen extends StatelessWidget {
                             const SizedBox(height: 12.0),
                             TextFormField(
                               decoration:
+                                  const InputDecoration(hintText: 'Username'),
+                              onChanged: (value) => context
+                                  .read<SignupCubit>()
+                                  .usernameChanged(value),
+                              validator: (value) => value!.trim().isEmpty
+                                  ? 'Please enter a valid email.'
+                                  : null,
+                            ),
+                            const SizedBox(height: 16.0),
+                            TextFormField(
+                              decoration:
                                   const InputDecoration(hintText: 'Email'),
-                              onChanged:(value) =>  context.read<LoginCubit>().emailChanged(value),
+                              onChanged: (value) => context
+                                  .read<SignupCubit>()
+                                  .emailChanged(value),
                               validator: (value) => !value!.contains('@')
                                   ? 'Please enter a valid email.'
                                   : null,
@@ -74,7 +87,10 @@ class LoginScreen extends StatelessWidget {
                             TextFormField(
                               decoration:
                                   const InputDecoration(hintText: 'Password'),
-                              onChanged: (value) => context.read<LoginCubit>().passwordChanged(value),
+                              obscureText: true,
+                              onChanged: (value) => context
+                                  .read<SignupCubit>()
+                                  .passwordChanged(value),
                               validator: (value) => value!.length < 6
                                   ? 'Must be at least 6 characters.'
                                   : null,
@@ -86,19 +102,19 @@ class LoginScreen extends StatelessWidget {
                                 elevation: 1.0,
                                 primary: Theme.of(context).primaryColor,
                               ),
-                              onPressed: () => _submitForm(context, state.status == LoginStatus.submitting),
-                              child: const Text('Log In'),
+                              onPressed: () => _submitForm(context,
+                                  state.status == SignupStatus.submitting),
+                              child: const Text('Sign Up'),
                             ),
                             const SizedBox(height: 12.0),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                onPrimary: Colors.grey[200],
+                                onPrimary: Colors.white,
                                 elevation: 1.0,
-                                primary: Colors.black,
+                                primary: Theme.of(context).primaryColor,
                               ),
-                              onPressed: () =>  Navigator.of(context)
-                                  .pushNamed(SignupScreen.routeName),
-                              child: const Text('No account? Sign up'),
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: const Text('Back to Login'),
                             ),
                           ],
                         ),
@@ -116,8 +132,7 @@ class LoginScreen extends StatelessWidget {
 
   void _submitForm(BuildContext context, bool isSubmitting) {
     if (_formKey.currentState!.validate() && !isSubmitting) {
-      context.read<LoginCubit>().logInWithCredentials();
+      context.read<SignupCubit>().signUpWithCredentials();
     }
   }
-
 }
