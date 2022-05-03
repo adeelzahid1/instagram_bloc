@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
             print('login state : $state');
             print('login state : ${state.failure.message}');
             if(state.status == LoginStatus.error){
-              errorDialog(context, state.failure);
+              ErrorDialog(e: state.failure);
               // showDialog(context: context,
               //  builder: (context) => AlertDialog(title: Text('Error'), content: Text('${state.failure.message}'))
               //  );

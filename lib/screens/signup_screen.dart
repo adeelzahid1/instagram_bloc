@@ -29,7 +29,7 @@ class SignupScreen extends StatelessWidget {
         child: BlocConsumer<SignupCubit, SignupState>(
           listener: (context, state) {
             if (state.status == SignupStatus.error) {
-             errorDialog(context, state.failure);
+             ErrorDialog(e: state.failure);
               // showDialog(
               //     context: context,
               //     builder: (context) => AlertDialog(

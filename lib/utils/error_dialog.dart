@@ -1,16 +1,23 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import 'package:instagram_bloc/models/failure_model.dart';
 
-void errorDialog(BuildContext context, Failure e) {
-  print('code: ${e.code}\nmessage: ${e.message}\nplugin:');
+class ErrorDialog extends StatelessWidget {
+ Failure e;
 
-  if (Platform.isIOS) {
-    showCupertinoDialog(
-      context: context,
-      builder: (context) {
+  ErrorDialog({Key? key, required this.e,}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Platform.isIOS
+        ? _showIOSDialog(context)
+        : _showAndroidDialog(context);
+  }
+
+    CupertinoAlertDialog _showIOSDialog(BuildContext context){
         return CupertinoAlertDialog(
           title: Text('${e.code}'),
           content: Text('${e.message}'),
@@ -21,12 +28,9 @@ void errorDialog(BuildContext context, Failure e) {
             ),
           ],
         );
-      },
-    );
-  }
+    }
 
-  else{
-    showDialog(context: context, builder: (context){
+    AlertDialog _showAndroidDialog(BuildContext context){
       return AlertDialog(
         title: Text('${e.code}'),
          content: Text('${e.message}'),
@@ -35,8 +39,6 @@ void errorDialog(BuildContext context, Failure e) {
               onPressed: () => Navigator.pop(context),
             ),],
       );
-    });
-  }
-
+    }
 
 }
