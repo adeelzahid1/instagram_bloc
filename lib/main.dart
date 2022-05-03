@@ -6,8 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_bloc/blocs/auth/auth_bloc.dart';
 import 'package:instagram_bloc/blocs/simple_bloc_observer.dart';
 import 'package:instagram_bloc/config/custom_routes.dart';
-
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:instagram_bloc/repositories/auth_repository.dart';
 import 'package:instagram_bloc/screens/splash.dart';

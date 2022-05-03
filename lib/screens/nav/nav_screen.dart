@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_bloc/enums/bottom_nav_item.dart';
 import 'package:instagram_bloc/screens/nav/cubit/bottom_nav_bar_cubit.dart';
+import 'package:instagram_bloc/screens/nav/widgets/tab_navigator.dart';
 import 'package:instagram_bloc/screens/nav/widgets/widgets.dart';
 
 class NavScreen extends StatelessWidget {
@@ -89,7 +90,7 @@ void _selectBottomNavItem(
   ) {
     return Offstage(
       offstage: !isSelected,
-      // child: TabNavigator(navigatorKey: navigatorKeys[currentItem],item: currentItem,),
+      child: TabNavigator(navigatorKey: navigatorKeys[currentItem]!,item: currentItem,),
     );
   }
 
