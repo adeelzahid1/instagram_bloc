@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
@@ -61,7 +62,38 @@ class User extends Equatable {
     );
   }
 
+
+
+
+
   Map<String, dynamic> toDocument() {
+    return {
+      'username': username,
+      'email': email,
+      'profileImageUrl': profileImageUrl,
+      'followers': followers,
+      'following': following,
+      'bio': bio,
+    };
+  }
+
+  factory User.fromDocument(DocumentSnapshot doc) {
+    final userData = doc.data() as Map<String, dynamic>;
+    // if (userData == null) {return null;}
+      // final data = doc.data();
+    return User(
+      id: doc.id,
+      username: userData['username'] ?? '',
+      email: userData['email'] ?? '',
+      profileImageUrl: userData['profileImageUrl'] ?? '',
+      followers: (userData['followers'] ?? 0).toInt(),
+      following: (userData['following'] ?? 0).toInt(),
+      bio: userData['bio'] ?? '',
+    );
+  }
+  
+
+  Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
   
     result.addAll({'id': id});
@@ -75,7 +107,7 @@ class User extends Equatable {
     return result;
   }
 
-  factory User.fromDocument(Map<String, dynamic> map) {
+  factory User.fromMap(Map<String, dynamic> map) {
     return User(
       id: map['id'] ?? '',
       username: map['username'] ?? '',
@@ -87,7 +119,7 @@ class User extends Equatable {
     );
   }
 
-  String toJson() => json.encode(toDocument());
+  String toJson() => json.encode(toMap());
 
-  factory User.fromJson(String source) => User.fromDocument(json.decode(source));
+  factory User.fromJson(String source) => User.fromMap(json.decode(source));
 }
