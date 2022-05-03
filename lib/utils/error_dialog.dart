@@ -16,7 +16,7 @@ void errorDialog(BuildContext context, Failure e) {
           content: Text('${e.message}'),
           actions: [
             CupertinoDialogAction(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () => Navigator.pop(context),
             ),
           ],
@@ -31,7 +31,7 @@ void errorDialog(BuildContext context, Failure e) {
         title: Text('${e.code}'),
          content: Text('${e.message}'),
         actions: [ TextButton(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () => Navigator.pop(context),
             ),],
       );

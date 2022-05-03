@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_bloc/screens/login_screen.dart';
-import 'package:instagram_bloc/screens/nav_screen.dart';
+import 'package:instagram_bloc/screens/nav/nav_screen.dart';
 import 'package:instagram_bloc/screens/signup_screen.dart';
 import 'package:instagram_bloc/screens/splash.dart';
 
@@ -18,7 +17,7 @@ class CustomRouter{
       case LoginScreen.routeName:
         return LoginScreen.route();
       case NavScreen.routeName:
-        return LoginScreen.route();
+        return NavScreen.route();
       case SignupScreen.routeName:
         return SignupScreen.route();
       

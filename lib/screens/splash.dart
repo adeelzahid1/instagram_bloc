@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_bloc/blocs/auth/auth_bloc.dart';
 import 'package:instagram_bloc/screens/login_screen.dart';
-import 'package:instagram_bloc/screens/nav_screen.dart';
+import 'package:instagram_bloc/screens/nav/nav_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -27,6 +27,7 @@ class SplashScreen extends StatelessWidget {
             //Go to the Login Screen
           }
           else if(state.status == AuthStatus.authenticated){
+            print('User is Authenticated , go to next route');
             Navigator.of(context).pushNamed(NavScreen.routeName);
             // Go to Home page .. 
           }

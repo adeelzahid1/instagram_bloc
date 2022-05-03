@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,12 +10,12 @@ import 'package:instagram_bloc/config/custom_routes.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:instagram_bloc/repositories/auth_repository.dart';
-import 'package:instagram_bloc/screens/login_screen.dart';
 import 'package:instagram_bloc/screens/splash.dart';
 import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  EquatableConfig.stringify = kDebugMode;
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

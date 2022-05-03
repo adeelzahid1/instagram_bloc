@@ -65,6 +65,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 12.0),
                             TextFormField(
+                              initialValue: "user01@gg.co",
                               decoration:
                                   const InputDecoration(hintText: 'Email'),
                               onChanged:(value) =>  context.read<LoginCubit>().emailChanged(value),
