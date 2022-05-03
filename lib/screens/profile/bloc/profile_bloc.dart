@@ -12,12 +12,20 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final UserRepository _userRepository;
   final AuthBloc _authBloc;
 
-  ProfileBloc({
-    required UserRepository userRepository,
-    required AuthBloc authBloc,
-  })  : _userRepository = userRepository,
-        _authBloc = authBloc,
-        super(ProfileState.initial());
+  ProfileBloc({required UserRepository userRepository,required AuthBloc authBloc,}) 
+   : _userRepository = userRepository,_authBloc = authBloc, super(ProfileState.initial());
+
+  // on<AuthUserChanged>((event, emit) {
+  //     if (event.user != null) {
+  //       emit(
+  //           state.copyWith(status: AuthStatus.authenticated, user: event.user));
+  //     } else {
+  //       emit(state.copyWith(status: AuthStatus.unauthenticated, user: null));
+  //     }
+  //   });
+
+
+
 
   @override
   Stream<ProfileState> mapEventToState(

@@ -17,21 +17,36 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required this.authRepository}): super(AuthState.unknown()) {
    userSubscription = authRepository.user.listen((auth.User? user) => add(AuthUserChanged(user: user)));
 
-  on<AuthUserChanged>((event, emit){
-    if(event.user != null){
-      emit(state.copyWith(status: AuthStatus.authenticated, user: event.user));
-    }
-    else{
-      emit(state.copyWith(status: AuthStatus.unauthenticated, user: null));
-    }
-  });
+  on<AuthUserChanged>((event, emit) {
+      if (event.user != null) {
+        emit(
+            state.copyWith(status: AuthStatus.authenticated, user: event.user));
+      } else {
+        emit(state.copyWith(status: AuthStatus.unauthenticated, user: null));
+      }
+    });
 
-    on<AuthLogoutRequested>((event, emit) async{
-    await authRepository.logOut();
-  });
+    on<AuthLogoutRequested>((event, emit) async {
+      await authRepository.logOut();
+    });
 
 
   }
+
+  //   @override
+  // Stream<AuthState> mapEventToState(AuthEvent event) async* {
+  //   if (event is AuthUserChanged) {
+  //     yield* _mapAuthUserChangedToState(event);
+  //   } else if (event is AuthLogoutRequested) {
+  //     await _authRepository.logOut();
+  //   }
+  // }
+
+  // Stream<AuthState> _mapAuthUserChangedToState(AuthUserChanged event) async* {
+  //   yield event.user != null
+  //       ? AuthState.authenticated(user: event.user)
+  //       : AuthState.unauthenticated();
+  // }
 
 
   @override

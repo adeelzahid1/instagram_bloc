@@ -29,7 +29,7 @@ class ProfileScreen extends StatelessWidget {
               if (state.isCurrentUser)
                 IconButton(
                   icon: const Icon(Icons.exit_to_app),
-                  onPressed: () =>
+                  onPressed: () => 
                       context.read<AuthBloc>().add(AuthLogoutRequested()),
                 ),
             ],
