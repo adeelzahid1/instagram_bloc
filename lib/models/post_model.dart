@@ -12,7 +12,7 @@ class Post extends Equatable {
   final int likes;
   final DateTime date;
   
-  Post({
+  const Post({
     required this.id,
     required this.author,
     required this.imageUrl,
@@ -66,7 +66,7 @@ Map<String, dynamic> toDocument() {
     };
   }
 
-   Future<Post?>? fromDocument(DocumentSnapshot doc) async {
+   static Future<Post?>? fromDocument(DocumentSnapshot doc) async {
     if (doc.data() == null) {return null;}
     else{
          final data =  doc.data() as Map<String, dynamic>;

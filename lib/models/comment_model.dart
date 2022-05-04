@@ -51,7 +51,7 @@ class Comment extends Equatable {
   }
 
 
-  static Future<Comment?>? fromDocument(DocumentSnapshot doc) async {
+  static Future<Comment?>? fromDocument(DocumentSnapshot? doc) async {
     if (doc == null) return null;
     final data = doc.data() as Map<String, dynamic>;
     final authorRef = data['author'] as DocumentReference;
