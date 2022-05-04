@@ -8,6 +8,7 @@ import 'package:instagram_bloc/blocs/simple_bloc_observer.dart';
 import 'package:instagram_bloc/config/custom_routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:instagram_bloc/repositories/auth_repository.dart';
+import 'package:instagram_bloc/repositories/storage/storage_repository.dart';
 import 'package:instagram_bloc/repositories/user/base_user_repository.dart';
 import 'package:instagram_bloc/screens/splash.dart';
 import 'firebase_options.dart';
@@ -34,13 +35,13 @@ class MyApp extends StatelessWidget {
     // context.read<AuthRepository>();
     return  MultiRepositoryProvider(
       providers: [
-        RepositoryProvider<AuthRepository>(
-          create: (_) => AuthRepository(),
-        ),
+        RepositoryProvider<AuthRepository>(create: (_) => AuthRepository(),),
 
-        RepositoryProvider<UserRepository>(
-          create: (_) => UserRepository()
-          )
+        RepositoryProvider<UserRepository>(create: (_) => UserRepository()),
+
+        RepositoryProvider<StorageRepository>(create: (_) => StorageRepository()),
+
+
       ],
       child: MultiBlocProvider(
         providers: [
