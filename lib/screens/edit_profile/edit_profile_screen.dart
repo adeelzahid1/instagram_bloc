@@ -128,16 +128,25 @@ class EditProfileScreen extends StatelessWidget {
 
 
     Future<void> _selectProfileImage(BuildContext context) async {
+     try{
+        print('Image Uplaod Method');
      final pickedFile = await ImageHelper().pickImageFromGallery(
       context: context,
       cropStyle: CropStyle.circle,
       title: 'Profile Image',
     );
     if (pickedFile != null) {
+      
       context
           .read<EditProfileCubit>()
           .profileImageChanged(File(pickedFile.path));
     }
+    
+     }catch(e){
+       print(e);
+       print('Image not uploaded');
+     }
+
   }
 
   void _submitForm(BuildContext context, bool isSubmitting) {
