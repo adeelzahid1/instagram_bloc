@@ -5,7 +5,7 @@ import 'package:instagram_bloc/config/path.dart';
 import 'package:instagram_bloc/models/user_model.dart';
 
 class Post extends Equatable {
-  final String id;
+  final String? id;
   final User author;
   final String imageUrl;
   final String caption;
@@ -13,7 +13,7 @@ class Post extends Equatable {
   final DateTime date;
   
   const Post({
-    required this.id,
+    this.id,
     required this.author,
     required this.imageUrl,
     required this.caption,
@@ -23,7 +23,7 @@ class Post extends Equatable {
 
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       id,
       author,
