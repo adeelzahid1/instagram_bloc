@@ -13,47 +13,39 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final AuthBloc _authBloc;
 
   ProfileBloc({required UserRepository userRepository,required AuthBloc authBloc,}) 
-   : _userRepository = userRepository,_authBloc = authBloc, super(ProfileState.initial());
+   : _userRepository = userRepository,_authBloc = authBloc, super(ProfileState.initial()){
 
-  // on<AuthUserChanged>((event, emit) {
-  //     if (event.user != null) {
-  //       emit(
-  //           state.copyWith(status: AuthStatus.authenticated, user: event.user));
-  //     } else {
-  //       emit(state.copyWith(status: AuthStatus.unauthenticated, user: null));
-  //     }
-  //   });
-
-
-
-
-  @override
-  Stream<ProfileState> mapEventToState(
-    ProfileEvent event,
-  ) async* {
-    if (event is ProfileLoadUser) {
-      yield* _mapProfileLoadUserToState(event);
-    }
-  }
-
-  Stream<ProfileState> _mapProfileLoadUserToState(
-    ProfileLoadUser event,
-  ) async* {
-    yield state.copyWith(status: ProfileStatus.loading);
-    try {
-      final user = await _userRepository.getUserWithId(userId: event.userId);
+  on<ProfileLoadUser>( (event, emit) async{
+  emit(state.copyWith(status: ProfileStatus.loading));
+  try {
+    final user = await _userRepository.getUserWithId(userId: event.userId);
       final isCurrentUser = _authBloc.state.user!.uid == event.userId;
-
-      yield state.copyWith(
-        user: user,
-        isCurrentUser: isCurrentUser,
-        status: ProfileStatus.loaded,
-      );
-    } catch (err) {
-      yield state.copyWith(
-        status: ProfileStatus.error,
-        failure: const Failure(message: 'We were unable to load this profile.'),
-      );
-    }
+      emit(state.copyWith(user: user, isCurrentUser: isCurrentUser,status: ProfileStatus.loaded,));
+  } catch (err) {
+        emit(state.copyWith(status: ProfileStatus.error, failure: const Failure(message: 'We were unable to load this profile.')));
+  }
+});
   }
 }
+//   @override
+//   Stream<ProfileState> mapEventToState(ProfileEvent event,) async* {
+//     if (event is ProfileLoadUser) {
+//       yield* _mapProfileLoadUserToState(event);
+//     }
+//   }
+
+//   Stream<ProfileState> _mapProfileLoadUserToState(
+//     ProfileLoadUser event,
+//   ) async* {
+//     yield state.copyWith(status: ProfileStatus.loading);
+//     try {
+//       final user = await _userRepository.getUserWithId(userId: event.userId);
+//       final isCurrentUser = _authBloc.state.user!.uid == event.userId;
+
+//       yield state.copyWith(user: user, isCurrentUser: isCurrentUser,status: ProfileStatus.loaded,);
+//     } catch (err) {
+//       yield state.copyWith( status: ProfileStatus.error, failure: const Failure(message: 'We were unable to load this profile.'),
+//       );
+//     }
+//   }
+// }
