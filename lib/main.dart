@@ -8,6 +8,7 @@ import 'package:instagram_bloc/blocs/simple_bloc_observer.dart';
 import 'package:instagram_bloc/config/custom_routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:instagram_bloc/repositories/auth_repository.dart';
+import 'package:instagram_bloc/repositories/post/post_repository.dart';
 import 'package:instagram_bloc/repositories/storage/storage_repository.dart';
 import 'package:instagram_bloc/repositories/user/base_user_repository.dart';
 import 'package:instagram_bloc/screens/splash.dart';
@@ -41,7 +42,8 @@ class MyApp extends StatelessWidget {
 
         RepositoryProvider<StorageRepository>(create: (_) => StorageRepository()),
 
-
+         RepositoryProvider<PostRepository>( create: (_) => PostRepository(),),
+         
       ],
       child: MultiBlocProvider(
         providers: [
