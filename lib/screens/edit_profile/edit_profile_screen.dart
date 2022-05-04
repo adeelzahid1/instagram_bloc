@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instagram_bloc/helpers/image_helper.dart';
 import 'package:instagram_bloc/models/user_model.dart';
 import 'package:instagram_bloc/repositories/storage/storage_repository.dart';
 import 'package:instagram_bloc/repositories/user/base_user_repository.dart';
@@ -7,6 +10,7 @@ import 'package:instagram_bloc/screens/edit_profile/cubit/edit_profile_cubit.dar
 import 'package:instagram_bloc/screens/profile/bloc/profile_bloc.dart';
 import 'package:instagram_bloc/screens/profile/widgets/profile_image.dart';
 import 'package:instagram_bloc/utils/error_dialog.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class EditProfileScreenArgs {
   final BuildContext context;
@@ -41,7 +45,7 @@ class EditProfileScreen extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Edit Profile'),
+          title: const Text('Edit Profile',),
         ),
         body: BlocConsumer<EditProfileCubit, EditProfileState>(
           listener: (context, state) {
@@ -79,7 +83,7 @@ class EditProfileScreen extends StatelessWidget {
                         children: [
                           TextFormField(
                             initialValue: user.username,
-                            decoration: InputDecoration(hintText: 'Username'),
+                            decoration: const InputDecoration(hintText: 'Username'),
                             onChanged: (value) => context
                                 .read<EditProfileCubit>()
                                 .usernameChanged(value),
@@ -123,8 +127,17 @@ class EditProfileScreen extends StatelessWidget {
   }
 
 
-    void _selectProfileImage(BuildContext context) {
-    // TODO: implement
+    Future<void> _selectProfileImage(BuildContext context) async {
+     final pickedFile = await ImageHelper().pickImageFromGallery(
+      context: context,
+      cropStyle: CropStyle.circle,
+      title: 'Profile Image',
+    );
+    if (pickedFile != null) {
+      context
+          .read<EditProfileCubit>()
+          .profileImageChanged(File(pickedFile.path));
+    }
   }
 
   void _submitForm(BuildContext context, bool isSubmitting) {
