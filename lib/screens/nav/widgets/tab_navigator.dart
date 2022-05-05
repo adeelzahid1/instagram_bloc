@@ -12,6 +12,7 @@ import 'package:instagram_bloc/screens/feed/feed_screen.dart';
 import 'package:instagram_bloc/screens/notifications/notifications.dart';
 import 'package:instagram_bloc/screens/profile/bloc/profile_bloc.dart';
 import 'package:instagram_bloc/screens/profile/profile_screen.dart';
+import 'package:instagram_bloc/screens/search/cubit/search_cubit.dart';
 import 'package:instagram_bloc/screens/search/search_screen.dart';
 
 
@@ -54,7 +55,11 @@ class TabNavigator extends StatelessWidget {
       case BottomNavItem.feed:
         return FeedScreen();
       case BottomNavItem.search:
-        return SearchScreen();
+        return BlocProvider<SearchCubit>(
+          create: (context) =>
+              SearchCubit(userRepository: context.read<UserRepository>()),
+          child: SearchScreen(),
+        );
       case BottomNavItem.create:
         return BlocProvider<CreatePostCubit>(
           create: (context) => CreatePostCubit(
@@ -75,10 +80,10 @@ class TabNavigator extends StatelessWidget {
           )..add(
               ProfileLoadUser(userId: context.read<AuthBloc>().state.user!.uid),
             ),
-          child: ProfileScreen(),
+          child: const ProfileScreen(),
         );
       default:
-        return Scaffold();
+        return const Scaffold();
     }
   }
 }
