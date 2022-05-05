@@ -10,7 +10,7 @@ class Comment extends Equatable {
   final String content;
   final DateTime date;
   
-  Comment({
+  const Comment({
     required this.id,
     required this.postId,
     required this.author,
@@ -53,8 +53,8 @@ class Comment extends Equatable {
 
   static Future<Comment?>? fromDocument(DocumentSnapshot? doc) async {
     if (doc == null) return null;
-    final data = doc.data() as Map<String, dynamic>;
-    final authorRef = data['author'] as DocumentReference;
+    Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+    DocumentReference<Object?> authorRef = data['author'] as DocumentReference;
     if (authorRef != null) {
       final authorDoc = await authorRef.get();
       if (authorDoc.exists) {
