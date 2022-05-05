@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_bloc/helpers/image_helper.dart';
@@ -127,7 +125,7 @@ class EditProfileScreen extends StatelessWidget {
   }
 
 
-    Future<void> _selectProfileImage(BuildContext context) async {
+    void _selectProfileImage(BuildContext context) async {
      try{
         print('Image Uplaod Method');
      final pickedFile = await ImageHelper().pickImageFromGallery(
@@ -136,7 +134,7 @@ class EditProfileScreen extends StatelessWidget {
       title: 'Profile Image',
     );
     if (pickedFile != null) {
-      
+      print('Picked file not null');
       context.read<EditProfileCubit>().profileImageChanged(pickedFile);
     }
     
