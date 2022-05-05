@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_bloc/screens/edit_profile/edit_profile_screen.dart';
 import 'package:instagram_bloc/screens/login_screen.dart';
 import 'package:instagram_bloc/screens/nav/nav_screen.dart';
+import 'package:instagram_bloc/screens/profile/profile_screen.dart';
 import 'package:instagram_bloc/screens/signup_screen.dart';
 import 'package:instagram_bloc/screens/splash.dart';
 
@@ -31,8 +32,10 @@ class CustomRouter{
   static Route onGenerateNestedRoute(RouteSettings settings) {
     print('Nested Route: ${settings.name}');
     switch (settings.name) {
+      case ProfileScreen.routeName:
+        return ProfileScreen.route(args: settings.arguments as ProfileScreenArgs);
       case EditProfileScreen.routeName:
-        return EditProfileScreen.route(args: settings.arguments as EditProfileScreenArgs);
+        return EditProfileScreen.route(args: settings.arguments  as EditProfileScreenArgs);
       default:
         return _errorRoute();
     }
