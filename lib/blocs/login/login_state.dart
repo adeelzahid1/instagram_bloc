@@ -18,11 +18,11 @@ class LoginState extends Equatable {
   });
 
   factory LoginState.initial() {
-    return LoginState(
+    return const LoginState(
       email: '',
       password: '',
       status: LoginStatus.initial,
-      failure: const Failure(),
+      failure: Failure(),
     );
   }
 

@@ -74,10 +74,12 @@ class CreatePostScreen extends StatelessWidget {
                                 : null,
                           ),
                           const SizedBox(height: 28.0),
-                          RaisedButton(
-                            elevation: 1.0,
-                            color: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
+                          ElevatedButton(
+                           style: ElevatedButton.styleFrom(
+                              elevation: 1.0,
+                              primary: Theme.of(context).primaryColor,
+                              onPrimary: Colors.white,
+                           ),
                             onPressed: () => _submitForm(context, state.postImage!,
                               state.status == CreatePostStatus.submitting,
                             ),

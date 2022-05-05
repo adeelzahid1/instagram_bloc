@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:instagram_bloc/models/failure_model.dart';
 
 class ErrorDialog extends StatelessWidget {
- Failure e;
+ final Failure e;
 
-  ErrorDialog({Key? key, required this.e,}) : super(key: key);
+  const ErrorDialog({Key? key, required this.e,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

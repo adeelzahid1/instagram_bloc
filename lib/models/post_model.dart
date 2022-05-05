@@ -70,7 +70,7 @@ Map<String, dynamic> toDocument() {
     if (doc.data() == null) {return null;}
     else{
          final data =  doc.data() as Map<String, dynamic>;
-         final authorRef = data['author'] as DocumentReference;
+         DocumentReference<Object?> authorRef = data['author'] as DocumentReference;
          if (authorRef != null) {
         final authorDoc = await authorRef.get();
           if (authorDoc.exists) {
