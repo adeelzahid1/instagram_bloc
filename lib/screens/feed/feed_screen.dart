@@ -7,7 +7,7 @@ class FeedScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: FlatButton(
+        child: ElevatedButton(
           onPressed: () => Navigator.of(context).push(
             MaterialPageRoute(
               builder: (_) => Scaffold(
@@ -17,7 +17,7 @@ class FeedScreen extends StatelessWidget {
               ),
             ),
           ),
-          child: Text('Feed'),
+          child: const Text('Feed'),
         ),
       ),
     );

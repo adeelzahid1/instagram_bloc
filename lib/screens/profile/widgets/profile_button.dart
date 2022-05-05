@@ -14,26 +14,30 @@ class ProfileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isCurrentUser
-        ? FlatButton(
+        ? ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Theme.of(context).primaryColor,
+                onPrimary:  Colors.white,
+                elevation: 1.0,
+              ),
             onPressed: () => Navigator.of(context).pushNamed(
               EditProfileScreen.routeName,
               arguments: EditProfileScreenArgs(context: context),
             ),
-            color: Theme.of(context).primaryColor,
-            textColor: Colors.white,
             child: const Text(
               'Edit Profile',
               style: TextStyle(fontSize: 16.0),
             ),
           )
-        : FlatButton(
+        : ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: isFollowing ? Colors.grey[300] : Theme.of(context).primaryColor,
+            onPrimary: isFollowing ? Colors.black : Colors.white,
+          ),
             onPressed: () {},
-            color:
-                isFollowing ? Colors.grey[300] : Theme.of(context).primaryColor,
-            textColor: isFollowing ? Colors.black : Colors.white,
             child: Text(
               isFollowing ? 'Unfollow' : 'Follow',
-              style: TextStyle(fontSize: 16.0),
+              style: const TextStyle(fontSize: 16.0),
             ),
           );
   }

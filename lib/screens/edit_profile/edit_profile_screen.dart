@@ -19,6 +19,7 @@ class EditProfileScreenArgs {
 class EditProfileScreen extends StatelessWidget {
   static const String routeName = '/editProfile';
   final User user;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   EditProfileScreen({Key? key, required this.user}) : super(key: key);
 
   static Route route({required EditProfileScreenArgs args}) {
@@ -35,7 +36,6 @@ class EditProfileScreen extends StatelessWidget {
     );
   }
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +92,7 @@ class EditProfileScreen extends StatelessWidget {
                           const SizedBox(height: 16.0),
                           TextFormField(
                             initialValue: user.bio,
-                            decoration: InputDecoration(hintText: 'Bio'),
+                            decoration: const InputDecoration(hintText: 'Bio'),
                             onChanged: (value) => context
                                 .read<EditProfileCubit>()
                                 .bioChanged(value),
@@ -101,13 +101,15 @@ class EditProfileScreen extends StatelessWidget {
                                 : null,
                           ),
                           const SizedBox(height: 28.0),
-                          RaisedButton(
+
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
                             elevation: 1.0,
-                            color: Theme.of(context).primaryColor,
-                            textColor: Colors.white,
+                            onPrimary: Colors.white,
+                            primary: Theme.of(context).primaryColor,
+                            ),
                             onPressed: () => _submitForm(
-                              context,
-                              state.status == EditProfileStatus.submitting,
+                              context, state.status == EditProfileStatus.submitting,
                             ),
                             child: const Text('Update'),
                           ),
