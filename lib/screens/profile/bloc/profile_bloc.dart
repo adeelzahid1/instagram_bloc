@@ -32,7 +32,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(state.copyWith(status: ProfileStatus.loading));
     try {
       final user = await _userRepository.getUserWithId(userId: event.userId);
-        final isCurrentUser = _authBloc.state.user!.uid == event.userId;
+        bool? isCurrentUser = _authBloc.state.user!.uid == event.userId;
+        bool isFollowing = await _userRepository.isFollowing(
+        userId: _authBloc.state.user!.uid,
+        otherUserId: event.userId,
+      );
 
         _postsSubscription.cancel();
         _postsSubscription = _postRepository.getUserPosts(userId: event.userId).listen((posts) async { 
@@ -40,7 +44,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           add(ProfileUpdatePosts(posts: allPosts as List<Post>));
         });
 
-        emit(state.copyWith(user: user, isCurrentUser: isCurrentUser,status: ProfileStatus.loaded,));
+        emit(state.copyWith(user: user, isCurrentUser: isCurrentUser,isFollowing: isFollowing ,status: ProfileStatus.loaded,));
     } catch (err) {
           emit(state.copyWith(status: ProfileStatus.error, failure: const Failure(message: 'We were unable to load this profile.')));
         }
@@ -56,6 +60,34 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(state.copyWith(posts: event.posts));
       }
     );
+
+    on<ProfileFollowUser>((event, emit) {
+      try {
+        _userRepository.followUser( userId: _authBloc.state.user!.uid, followUserId: state.user.id,);
+        final updatedUser = state.user.copyWith(followers: state.user.followers + 1);
+        emit(state.copyWith(user: updatedUser, isFollowing: true));
+      } catch (err) {
+          emit(state.copyWith(
+            status: ProfileStatus.error, 
+            failure: const Failure(message: 'Something went wrong! Please try again.'),),
+          );
+        }
+    });
+
+    on<ProfileUnfollowUser>((event, emit) {
+      try {
+      _userRepository.unfollowUser( userId: _authBloc.state.user!.uid, unfollowUserId: state.user.id,);
+      final updatedUser = state.user.copyWith(followers: state.user.followers - 1);
+       emit(state.copyWith(user: updatedUser, isFollowing: false));
+      } catch (err) {
+          emit(state.copyWith(
+            status: ProfileStatus.error, 
+            failure: const Failure(message: 'Something went wrong! Please try again.'),),
+          );
+        }
+    });
+
+    
 
   }
 
