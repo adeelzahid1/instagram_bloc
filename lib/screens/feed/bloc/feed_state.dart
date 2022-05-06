@@ -3,7 +3,7 @@ part of 'feed_bloc.dart';
 enum FeedStatus { initial, loading, loaded, paginating, error }
 
 class FeedState extends Equatable {
-  final Set<List<Post>> posts;
+  final List<Post> posts;
   final FeedStatus status;
   final Failure failure;
 
@@ -18,7 +18,7 @@ class FeedState extends Equatable {
 
     factory FeedState.initial() {
     return  const FeedState(
-      posts: {},
+      posts: [],
       status: FeedStatus.initial,
       failure: Failure(),
     );
@@ -26,7 +26,7 @@ class FeedState extends Equatable {
 
 
   FeedState copyWith({
-    Set<List<Post>>? posts,
+    List<Post>? posts,
     FeedStatus? status,
     Failure? failure,
   }) {
