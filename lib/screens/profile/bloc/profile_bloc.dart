@@ -33,11 +33,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     try {
       final user = await _userRepository.getUserWithId(userId: event.userId);
         bool? isCurrentUser = _authBloc.state.user!.uid == event.userId;
-        bool isFollowing = await _userRepository.isFollowing(
-        userId: _authBloc.state.user!.uid,
-        otherUserId: event.userId,
-      );
-
+        bool isFollowing = await _userRepository.isFollowing( userId: _authBloc.state.user!.uid,otherUserId: event.userId,);
+ 
         _postsSubscription.cancel();
         _postsSubscription = _postRepository.getUserPosts(userId: event.userId).listen((posts) async { 
           List<Future<Post?>?> allPosts = await Future.delayed(const Duration(seconds: 2), () => posts);  
