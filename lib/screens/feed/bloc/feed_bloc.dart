@@ -32,8 +32,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState> {
   Stream<FeedState> _mapFeedFetchPostsToState() async* {
     yield state.copyWith(posts: [], status: FeedStatus.loading);
     try {
-      final posts =
-          await _postRepository.getUserFeed(userId: _authBloc.state.user!.uid);
+      final posts =await _postRepository.getUserFeed(userId: _authBloc.state.user!.uid);
       yield state.copyWith(posts: posts, status: FeedStatus.loaded);
     } catch (err) {
       yield state.copyWith(

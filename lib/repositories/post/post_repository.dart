@@ -49,7 +49,9 @@ class PostRepository extends BasePostRepository {
   }
 
     @override
-  Future<Set<List<Post>>> getUserFeed({required String userId}) async {
+  //  Future<List<Future<Post?>?>>
+  // Future<List<Post>>
+   Future<List<Post>?> getUserFeed({required String userId}) async {
     final postsSnap = await _firebaseFirestore
         .collection(Paths.feeds)
         .doc(userId)
@@ -57,10 +59,11 @@ class PostRepository extends BasePostRepository {
         .orderBy('date', descending: true)
         .get();
         final posts = Future.delayed(const Duration(seconds: 2), () => {
-          postsSnap.docs.map((doc) => Post.fromDocument(doc)).toList() as List<Post>
+          postsSnap.docs.map((doc) => Post.fromDocument(doc)).toList(),
         });
-    //final posts = Future.wait(postsSnap.docs.map((doc) => Post.fromDocument(doc)).toList(),);
-    return posts;
+    // final posts = Future.wait(postsSnap.docs.map((doc) => Post.fromDocument(doc)).toList() ) ;
+    return posts as Future<List<Post>?>;
   }
 
 }
+//Future<Set<List<Post>>>
