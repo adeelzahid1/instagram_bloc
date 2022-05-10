@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_bloc/screens/comments/comments_screen.dart';
 import 'package:instagram_bloc/screens/edit_profile/edit_profile_screen.dart';
 import 'package:instagram_bloc/screens/login_screen.dart';
 import 'package:instagram_bloc/screens/nav/nav_screen.dart';
@@ -36,6 +37,8 @@ class CustomRouter{
         return ProfileScreen.route(args: settings.arguments as ProfileScreenArgs);
       case EditProfileScreen.routeName:
         return EditProfileScreen.route(args: settings.arguments  as EditProfileScreenArgs);
+      case CommentsScreen.routeName:
+        return CommentsScreen.route(args: settings.arguments);
       default:
         return _errorRoute();
     }
