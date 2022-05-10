@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_bloc/helpers/image_helper.dart';
 import 'package:instagram_bloc/models/user_model.dart';
 import 'package:instagram_bloc/repositories/storage/storage_repository.dart';
-import 'package:instagram_bloc/repositories/user/base_user_repository.dart';
+import 'package:instagram_bloc/repositories/user/user_repository.dart';
 import 'package:instagram_bloc/screens/edit_profile/cubit/edit_profile_cubit.dart';
 import 'package:instagram_bloc/screens/profile/bloc/profile_bloc.dart';
 import 'package:instagram_bloc/screens/profile/widgets/profile_image.dart';

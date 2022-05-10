@@ -7,7 +7,7 @@ import 'package:instagram_bloc/models/failure_model.dart';
 import 'package:instagram_bloc/models/post_model.dart';
 import 'package:instagram_bloc/models/user_model.dart';
 import 'package:instagram_bloc/repositories/post/post_repository.dart';
-import 'package:instagram_bloc/repositories/user/base_user_repository.dart';
+import 'package:instagram_bloc/repositories/user/user_repository.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';

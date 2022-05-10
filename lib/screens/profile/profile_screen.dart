@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:instagram_bloc/blocs/auth/auth_bloc.dart';
 import 'package:instagram_bloc/repositories/post/post_repository.dart';
-import 'package:instagram_bloc/repositories/user/base_user_repository.dart';
+import 'package:instagram_bloc/repositories/user/user_repository.dart';
 import 'package:instagram_bloc/screens/profile/bloc/profile_bloc.dart';
 import 'package:instagram_bloc/screens/profile/widgets/profile_image.dart';
 import 'package:instagram_bloc/screens/profile/widgets/profile_info.dart';
@@ -20,6 +20,7 @@ class ProfileScreenArgs {
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
   static const String routeName = '/profile';
+  
    static Route route({required ProfileScreenArgs args}) {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
@@ -113,50 +114,50 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                       ),
                     ),
 
-                     SliverToBoxAdapter(
-                    child: TabBar(
-                      controller: _tabController,
-                      labelColor: Theme.of(context).primaryColor,
-                      unselectedLabelColor: Colors.grey,
-                      tabs: const [
-                        Tab(icon: Icon(Icons.grid_on, size: 28.0)),
-                        Tab(icon: Icon(Icons.list, size: 28.0)),
-                      ],
-                      indicatorWeight: 3.0,
-                      onTap: (i) => context.read<ProfileBloc>().add(ProfileToggleGridView(isGridView: i == 0)),
-                    ),
-                  ),
+                  //    SliverToBoxAdapter(
+                  //   child: TabBar(
+                  //     controller: _tabController,
+                  //     labelColor: Theme.of(context).primaryColor,
+                  //     unselectedLabelColor: Colors.grey,
+                  //     tabs: const [
+                  //       Tab(icon: Icon(Icons.grid_on, size: 28.0)),
+                  //       Tab(icon: Icon(Icons.list, size: 28.0)),
+                  //     ],
+                  //     indicatorWeight: 3.0,
+                  //     onTap: (i) => context.read<ProfileBloc>().add(ProfileToggleGridView(isGridView: i == 0)),
+                  //   ),
+                  // ),
                   
-                  state.isGridView
-                  ? SliverGrid(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 2.0,
-                        crossAxisSpacing: 2.0,
-                      ),
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final post = state.posts[index];
-                           return PostView(
-                            post: post,
-                            isLiked: false,
-                          );
-                        },
-                        childCount: state.posts.length,
-                      ),
-                    )
-                  : SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final post = state.posts[index];
-                          return PostView(
-                            post: post,
-                            isLiked: false,
-                          );
-                        },
-                        childCount: state.posts.length,
-                      ),
-                    ),
+                  // state.isGridView
+                  // ? SliverGrid(
+                  //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  //       crossAxisCount: 3,
+                  //       mainAxisSpacing: 2.0,
+                  //       crossAxisSpacing: 2.0,
+                  //     ),
+                  //     delegate: SliverChildBuilderDelegate(
+                  //       (context, index) {
+                  //         final post = state.posts[index];
+                  //          return PostView(
+                  //           post: post,
+                  //           isLiked: false,
+                  //         );
+                  //       },
+                  //       childCount: state.posts.length,
+                  //     ),
+                  //   )
+                  // : SliverList(
+                  //     delegate: SliverChildBuilderDelegate(
+                  //       (context, index) {
+                  //         final post = state.posts[index];
+                  //         return PostView(
+                  //           post: post,
+                  //           isLiked: false,
+                  //         );
+                  //       },
+                  //       childCount: state.posts.length,
+                  //     ),
+                  //   ),
 
                   ],
                 ),

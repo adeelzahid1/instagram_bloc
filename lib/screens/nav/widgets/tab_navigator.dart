@@ -5,7 +5,7 @@ import 'package:instagram_bloc/config/custom_routes.dart';
 import 'package:instagram_bloc/enums/bottom_nav_item.dart';
 import 'package:instagram_bloc/repositories/post/post_repository.dart';
 import 'package:instagram_bloc/repositories/storage/storage_repository.dart';
-import 'package:instagram_bloc/repositories/user/base_user_repository.dart';
+import 'package:instagram_bloc/repositories/user/user_repository.dart';
 import 'package:instagram_bloc/screens/create_post/create_post_screen.dart';
 import 'package:instagram_bloc/screens/create_post/cubit/create_post_cubit.dart';
 import 'package:instagram_bloc/screens/feed/feed_screen.dart';

@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:instagram_bloc/models/failure_model.dart';
 import 'package:instagram_bloc/repositories/storage/storage_repository.dart';
-import 'package:instagram_bloc/repositories/user/base_user_repository.dart';
+import 'package:instagram_bloc/repositories/user/user_repository.dart';
 import 'package:instagram_bloc/screens/profile/bloc/profile_bloc.dart';
 
 part 'edit_profile_state.dart';

@@ -11,6 +11,7 @@ import 'package:instagram_bloc/repositories/auth_repository.dart';
 import 'package:instagram_bloc/repositories/post/post_repository.dart';
 import 'package:instagram_bloc/repositories/storage/storage_repository.dart';
 import 'package:instagram_bloc/repositories/user/base_user_repository.dart';
+import 'package:instagram_bloc/repositories/user/user_repository.dart';
 import 'package:instagram_bloc/screens/splash.dart';
 import 'firebase_options.dart';
 
