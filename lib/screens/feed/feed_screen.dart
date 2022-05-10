@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:instagram_bloc/cubits/liked_post/liked_posts_cubit.dart';
 import 'package:instagram_bloc/screens/feed/bloc/feed_bloc.dart';
 import 'package:instagram_bloc/utils/error_dialog.dart';
 import 'package:instagram_bloc/widgets/post_view.dart';
@@ -52,13 +53,29 @@ class _FeedScreenState extends State<FeedScreen> {
         return RefreshIndicator(
           onRefresh: () async {
             context.read<FeedBloc>().add(FeedFetchPosts());
+            context.read<LikedPostsCubit>().clearAllLikedPosts();
              //return true;
           },
           child: ListView.builder(
             itemCount: state.posts.length,
             itemBuilder: (BuildContext context, int index) {
               final post = state.posts[index];
-              return PostView(post: post, isLiked: false);
+              final likedPostsState = context.watch<LikedPostsCubit>().state;
+              final isLiked = likedPostsState.likedPostIds.contains(post.id);
+              final recentlyLiked =
+                  likedPostsState.recentlyLikedPostIds.contains(post.id);
+              return PostView(
+                post: post,
+                isLiked: isLiked,
+                recentlyLiked: recentlyLiked,
+                onLike: () {
+                  if (isLiked) {
+                    context.read<LikedPostsCubit>().unlikePost(post: post);
+                  } else {
+                    context.read<LikedPostsCubit>().likePost(post: post);
+                  }
+                },
+              );
             },
           ),
         );
