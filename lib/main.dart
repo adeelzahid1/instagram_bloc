@@ -9,6 +9,7 @@ import 'package:instagram_bloc/config/custom_routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:instagram_bloc/cubits/liked_post/liked_posts_cubit.dart';
 import 'package:instagram_bloc/repositories/auth_repository.dart';
+import 'package:instagram_bloc/repositories/notification/notification_repository.dart';
 import 'package:instagram_bloc/repositories/post/post_repository.dart';
 import 'package:instagram_bloc/repositories/storage/storage_repository.dart';
 import 'package:instagram_bloc/repositories/user/base_user_repository.dart';
@@ -44,12 +45,12 @@ class MyApp extends StatelessWidget {
 
         RepositoryProvider<StorageRepository>(create: (_) => StorageRepository()),
 
-         RepositoryProvider<PostRepository>( create: (_) => PostRepository(),),
+        RepositoryProvider<PostRepository>( create: (_) => PostRepository(),),
          
-          
+        RepositoryProvider<NotificationRepository>(create: (_) => NotificationRepository(),),
       ],
       child: MultiBlocProvider(
-        providers: [
+        providers: [  
           BlocProvider<AuthBloc>(
             create: (context) =>
                 AuthBloc(authRepository: context.read<AuthRepository>()),

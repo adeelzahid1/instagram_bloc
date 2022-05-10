@@ -4,6 +4,7 @@ import 'package:instagram_bloc/blocs/auth/auth_bloc.dart';
 import 'package:instagram_bloc/config/custom_routes.dart';
 import 'package:instagram_bloc/cubits/liked_post/liked_posts_cubit.dart';
 import 'package:instagram_bloc/enums/bottom_nav_item.dart';
+import 'package:instagram_bloc/repositories/notification/notification_repository.dart';
 import 'package:instagram_bloc/repositories/post/post_repository.dart';
 import 'package:instagram_bloc/repositories/storage/storage_repository.dart';
 import 'package:instagram_bloc/repositories/user/user_repository.dart';
@@ -11,11 +12,14 @@ import 'package:instagram_bloc/screens/create_post/create_post_screen.dart';
 import 'package:instagram_bloc/screens/create_post/cubit/create_post_cubit.dart';
 import 'package:instagram_bloc/screens/feed/bloc/feed_bloc.dart';
 import 'package:instagram_bloc/screens/feed/feed_screen.dart';
+import 'package:instagram_bloc/screens/notifications/bloc/notification_bloc.dart';
 import 'package:instagram_bloc/screens/notifications/notifications.dart';
 import 'package:instagram_bloc/screens/profile/bloc/profile_bloc.dart';
 import 'package:instagram_bloc/screens/profile/profile_screen.dart';
 import 'package:instagram_bloc/screens/search/cubit/search_cubit.dart';
 import 'package:instagram_bloc/screens/search/search_screen.dart';
+
+
 
 
 class TabNavigator extends StatelessWidget {
@@ -79,7 +83,13 @@ class TabNavigator extends StatelessWidget {
           child: CreatePostScreen(),
         );
       case BottomNavItem.notifications:
-        return NotificationsScreen();
+         return BlocProvider<NotificationsBloc>(
+          create: (context) => NotificationsBloc(
+            notificationRepository: context.read<NotificationRepository>(),
+            authBloc: context.read<AuthBloc>(),
+          ),
+          child: NotificationsScreen(),
+        );
       case BottomNavItem.profile:
         return BlocProvider<ProfileBloc>(
           create: (_) => ProfileBloc(
