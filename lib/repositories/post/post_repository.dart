@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:instagram_bloc/config/path.dart';
+import 'package:instagram_bloc/enum/notify_type.dart';
+import 'package:instagram_bloc/models/notify_model.dart';
 import 'package:instagram_bloc/models/post_model.dart';
 import 'package:instagram_bloc/models/comment_model.dart';
+import 'package:instagram_bloc/models/user_model.dart';
 import 'package:instagram_bloc/repositories/post/base_post_repository.dart';
 
 class PostRepository extends BasePostRepository {
@@ -11,12 +14,25 @@ class PostRepository extends BasePostRepository {
       : _firebaseFirestore = firebaseFirestore ?? FirebaseFirestore.instance;
 
   @override
-  Future<void> createComment({required Comment comment}) async {
+  Future<void> createComment({required Post post, required Comment comment}) async {
     await _firebaseFirestore
         .collection(Paths.comments)
         .doc(comment.postId)
         .collection(Paths.postComments)
         .add(comment.toDocument());
+
+    final notification = Notif(
+      type: NotifType.comment,
+      fromUser: comment.author,
+      post: post,
+      date: DateTime.now(),
+    );
+
+    _firebaseFirestore
+        .collection(Paths.notifications)
+        .doc(post.author.id)
+        .collection(Paths.userNotifications)
+        .add(notification.toDocument());
   }
 
   @override
@@ -32,6 +48,20 @@ class PostRepository extends BasePostRepository {
         .collection(Paths.postLikes)
         .doc(userId)
         .set({});
+
+    final notification = Notif(
+      type: NotifType.like,
+      fromUser: User.empty.copyWith(id: userId),
+      post: post,
+      date: DateTime.now(),
+    );
+
+    _firebaseFirestore
+        .collection(Paths.notifications)
+        .doc(post.author.id)
+        .collection(Paths.userNotifications)
+        .add(notification.toDocument());
+        
   }
 
 

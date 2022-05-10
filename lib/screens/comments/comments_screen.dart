@@ -72,16 +72,16 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: comment!.author.username,
+                        text: comment.author.username,
                         style: const TextStyle(fontWeight: FontWeight.w600),
                       ),
                       const TextSpan(text: ' '),
-                      TextSpan(text: comment!.content),
+                      TextSpan(text: comment.content),
                     ],
                   ),
                 ),
                 subtitle: Text(
-                  DateFormat.yMd().add_jm().format(comment!.date),
+                  DateFormat.yMd().add_jm().format(comment.date),
                   style: TextStyle(
                     color: Colors.grey[600],
                     fontWeight: FontWeight.w500,
@@ -89,7 +89,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                 ),
                 onTap: () => Navigator.of(context).pushNamed(
                   ProfileScreen.routeName,
-                  arguments: ProfileScreenArgs(userId: comment!.author.id),
+                  arguments: ProfileScreenArgs(userId: comment.author.id),
                 ),
               );
             },
@@ -108,12 +108,12 @@ class _CommentsScreenState extends State<CommentsScreen> {
                       child: TextField(
                         controller: _commentController,
                         textCapitalization: TextCapitalization.sentences,
-                        decoration: InputDecoration.collapsed(
+                        decoration: const InputDecoration.collapsed(
                             hintText: 'Write a comment...'),
                       ),
                     ),
                     IconButton(
-                      icon: Icon(Icons.send),
+                      icon: const Icon(Icons.send),
                       onPressed: () {
                         final content = _commentController.text.trim();
                         if (content.isNotEmpty) {
