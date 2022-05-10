@@ -4,14 +4,14 @@ import 'package:instagram_bloc/config/path.dart';
 import 'package:instagram_bloc/models/user_model.dart';
 
 class Comment extends Equatable {
-  final String id;
+  final String? id;
   final String postId;
   final User author;
   final String content;
   final DateTime date;
   
   const Comment({
-    required this.id,
+    this.id,
     required this.postId,
     required this.author,
     required this.content,
@@ -21,7 +21,7 @@ class Comment extends Equatable {
 
 
   @override
-  List<Object> get props {return [id,postId,author,content, date,];
+  List<Object?> get props {return [id,postId,author,content, date,];
   }
 
   Comment copyWith({
